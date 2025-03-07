@@ -10,7 +10,11 @@ public class dbHelper {
     // Constructor - Establishes Connection
     public dbHelper() {
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/your_database", "root", "password");
+            conn = DriverManager.getConnection(
+            "jdbc:mysql://127.0.0.1:3306/pos_schema",
+            "root",
+            "impoyski0501"
+            );
         } catch (SQLException e) {
             e.printStackTrace();
         }

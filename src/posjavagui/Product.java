@@ -18,4 +18,29 @@ public class Product {
         this.price = price;
         this.product_stocks = product_stocks;
     }
+    
+    public String getName()
+    {
+        return this.product_name;
+    }
+    
+    public String getImg()
+    {
+        return this.product_img;
+    }
+    
+    public int getId()
+    {
+        return this.product_id;
+    }
+    
+    public int getPrice()
+    {
+        return this.price;
+    }
+    
+    public int getStocks()
+    {
+        return this.product_stocks;
+    }
 }
