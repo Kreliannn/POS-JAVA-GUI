@@ -127,7 +127,9 @@ public class loginFrame extends javax.swing.JFrame {
         }
         else
         {
-            JOptionPane.showMessageDialog(null, "welcome login successfullly!", "Info", JOptionPane.INFORMATION_MESSAGE);
+            this.dispose(); 
+            shopFrame shopPage = new shopFrame();
+            shopPage.setVisible(true);
         }
         
     }//GEN-LAST:event_loginButtonActionPerformed
