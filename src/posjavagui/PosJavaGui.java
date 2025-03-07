@@ -1,21 +1,34 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package posjavagui;
+import java.sql.*;
 
-/**
- *
- * @author U
- */
+
 public class PosJavaGui {
 
-    /**
-     * @param args the command line arguments
-     */
+  
     public static void main(String[] args) {
-        // TODO code application logic here
+        
+        try{
+             Connection connection = DriverManager.getConnection(
+                "jdbc:mysql://127.0.0.1:3306/pos_schema",
+                "root",
+                "impoyski0501"
+            );
+             
+            Statement stmt = connection.createStatement();
+            ResultSet resultSet = stmt.executeQuery("select * from products");
+            
+            while(resultSet.next())
+            {
+                System.out.println("product_name: " + resultSet.getString("product_name"));
+                System.out.println("product_price: " + resultSet.getInt("price"));
+                System.out.println("product_stock: " + resultSet.getInt("product_stocks"));
+            }
+             
+             
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+       
     }
     
 }
