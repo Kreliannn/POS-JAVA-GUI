@@ -196,31 +196,36 @@ public class addProductsFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_addProductBtnActionPerformed
 
     private void uploadBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadBtnActionPerformed
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Select an Image");
-        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Image Files", "jpg", "png", "jpeg"));
+           JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Select an Image");
+            fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Image Files", "jpg", "png", "jpeg"));
 
-        int result = fileChooser.showOpenDialog(null);
-        if (result == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = fileChooser.getSelectedFile();
+            int result = fileChooser.showOpenDialog(null);
+            if (result == JFileChooser.APPROVE_OPTION) {
+                File selectedFile = fileChooser.getSelectedFile();
 
-            // Define the target directory inside your project
-            File targetDirectory = new File("src/posjavagui/assets"); // Change as needed
+                // Define the target directory inside your project
+                File targetDirectory = new File("src/posjavagui/assets");
+                if (!targetDirectory.exists()) {
+                    targetDirectory.mkdirs(); // Create the directory if it doesn't exist
+                }
 
-            // Save the image to the target directory
-            File destination = new File(targetDirectory, selectedFile.getName());
-            try {
-                Files.copy(selectedFile.toPath(), destination.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                JOptionPane.showMessageDialog(null, "Image uploaded successfully!\nSaved at: " + destination.getAbsolutePath(), "Success", JOptionPane.INFORMATION_MESSAGE);
-                
-                productImg.setText(selectedFile.getName());
-                
-                
-            } catch (IOException ex) {
-                JOptionPane.showMessageDialog(null, "Error saving image: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                // Generate a unique filename using timestamp
+                String fileExtension = selectedFile.getName().substring(selectedFile.getName().lastIndexOf("."));
+                String uniqueFileName = System.currentTimeMillis() + fileExtension; // Example: 1710001234567.png
+
+                // Save the image to the target directory with a new unique name
+                File destination = new File(targetDirectory, uniqueFileName);
+                try {
+                    Files.copy(selectedFile.toPath(), destination.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                    JOptionPane.showMessageDialog(null, "Image uploaded successfully!\nSaved as: " + uniqueFileName, "Success", JOptionPane.INFORMATION_MESSAGE);
+
+                    productImg.setText(uniqueFileName); // Set the new filename in your UI
+
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(null, "Error saving image: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
-        }
-
     }//GEN-LAST:event_uploadBtnActionPerformed
 
     /**
