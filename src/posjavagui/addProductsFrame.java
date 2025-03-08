@@ -57,6 +57,11 @@ public class addProductsFrame extends javax.swing.JFrame {
         uploadBtn.setText("upload image");
 
         addProductBtn.setText("ADD PRODUCT");
+        addProductBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addProductBtnActionPerformed(evt);
+            }
+        });
 
         backHome.setText("HOME");
         backHome.addActionListener(new java.awt.event.ActionListener() {
@@ -131,6 +136,19 @@ public class addProductsFrame extends javax.swing.JFrame {
          shopFrame shopPage = new shopFrame();
          shopPage.setVisible(true);
     }//GEN-LAST:event_backHomeActionPerformed
+
+    private void addProductBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addProductBtnActionPerformed
+        
+        
+        
+        String name = productName.getText();
+        String img = "beef.jpg";
+        int price = Integer.parseInt(productPrice.getText());
+        int stocks = Integer.parseInt(productStocks.getText());
+        
+        
+        
+    }//GEN-LAST:event_addProductBtnActionPerformed
 
     /**
      * @param args the command line arguments

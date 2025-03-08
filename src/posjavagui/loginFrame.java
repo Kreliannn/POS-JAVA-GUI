@@ -128,7 +128,7 @@ public class loginFrame extends javax.swing.JFrame {
         else
         {
             this.dispose(); 
-            shopFrame shopPage = new shopFrame();
+            shopFrame shopPage = new shopFrame();          
             shopPage.setVisible(true);
         }
         
