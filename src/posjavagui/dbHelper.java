@@ -63,6 +63,23 @@ public class dbHelper {
     }
     
     
+    public boolean updateProduct(int price, int stocks, int id)
+    {
+         String query = "UPDATE products SET price = ?, product_stocks = ? WHERE product_id = ?";
+        
+        try{
+             PreparedStatement stmt = conn.prepareStatement(query);
+             stmt.setInt(1, price);
+             stmt.setInt(2, stocks);
+             stmt.setInt(3, id);
+             stmt.executeUpdate();
+             return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
     
     
     
