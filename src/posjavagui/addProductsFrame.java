@@ -4,7 +4,13 @@
  * and open the template in the editor.
  */
 package posjavagui;
-
+import javax.swing.JOptionPane;
+import javax.swing.*; // For JFileChooser and JOptionPane
+import java.awt.event.*; // For ActionListener (if needed)
+import java.io.*; // For File handling
+import java.nio.file.Files; // For file copying
+import java.nio.file.StandardCopyOption; // For replacing existing files
+import javax.swing.filechooser.FileNameExtensionFilter; // For filtering image files
 /**
  *
  * @author U
@@ -37,8 +43,12 @@ public class addProductsFrame extends javax.swing.JFrame {
         uploadBtn = new javax.swing.JButton();
         addProductBtn = new javax.swing.JButton();
         backHome = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        productImg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("sdsa");
 
         jLabel1.setText("ADD PRODUCTS");
 
@@ -55,6 +65,11 @@ public class addProductsFrame extends javax.swing.JFrame {
         jLabel4.setText("STOCKS: ");
 
         uploadBtn.setText("upload image");
+        uploadBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                uploadBtnActionPerformed(evt);
+            }
+        });
 
         addProductBtn.setText("ADD PRODUCT");
         addProductBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -70,13 +85,25 @@ public class addProductsFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel5.setText("image: ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(60, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(backHome)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(49, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(productImg, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel2)
                     .addComponent(productName)
                     .addGroup(layout.createSequentialGroup()
@@ -86,17 +113,13 @@ public class addProductsFrame extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
-                            .addComponent(productStocks, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)))
+                            .addComponent(productStocks)))
                     .addComponent(uploadBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(addProductBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(94, 94, 94)))
                 .addGap(75, 75, 75))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(backHome)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -117,7 +140,12 @@ public class addProductsFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(productPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(productStocks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6)
+                    .addComponent(productImg))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(uploadBtn)
                 .addGap(18, 18, 18)
                 .addComponent(addProductBtn)
@@ -139,16 +167,61 @@ public class addProductsFrame extends javax.swing.JFrame {
 
     private void addProductBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addProductBtnActionPerformed
         
-        
+        dbHelper myDb = new dbHelper();
         
         String name = productName.getText();
-        String img = "beef.jpg";
-        int price = Integer.parseInt(productPrice.getText());
-        int stocks = Integer.parseInt(productStocks.getText());
+        String img = productImg.getText();
+        int price = Integer.parseInt(!productPrice.getText().equals("") ? productPrice.getText() : "0");
+        int stocks = Integer.parseInt(!productStocks.getText().equals("") ? productStocks.getText() : "0");
+   
+        if(name.equals("") || img.equals("") || price == 0 || stocks == 0)
+        {
+            JOptionPane.showMessageDialog(null, "empty field!!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }    
         
-        
+        if( myDb.addProduct(new Product(0, name, img, price, stocks)))
+        {
+           JOptionPane.showMessageDialog(null, "Product successfully added", "Success", JOptionPane.INFORMATION_MESSAGE);
+           productName.setText("");
+           productPrice.setText("");
+           productStocks.setText("");
+           productImg.setText("");
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "something went wrong!!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
         
     }//GEN-LAST:event_addProductBtnActionPerformed
+
+    private void uploadBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadBtnActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Select an Image");
+        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Image Files", "jpg", "png", "jpeg"));
+
+        int result = fileChooser.showOpenDialog(null);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+
+            // Define the target directory inside your project
+            File targetDirectory = new File("src/posjavagui/assets"); // Change as needed
+
+            // Save the image to the target directory
+            File destination = new File(targetDirectory, selectedFile.getName());
+            try {
+                Files.copy(selectedFile.toPath(), destination.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                JOptionPane.showMessageDialog(null, "Image uploaded successfully!\nSaved at: " + destination.getAbsolutePath(), "Success", JOptionPane.INFORMATION_MESSAGE);
+                
+                productImg.setText(selectedFile.getName());
+                
+                
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(null, "Error saving image: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+    }//GEN-LAST:event_uploadBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -192,6 +265,9 @@ public class addProductsFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel productImg;
     private javax.swing.JTextField productName;
     private javax.swing.JTextField productPrice;
     private javax.swing.JTextField productStocks;
