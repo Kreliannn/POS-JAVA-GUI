@@ -81,6 +81,31 @@ public class dbHelper {
     }
     
     
+    public boolean checkAccountExist(String username, String password)
+    {
+         String query = "select * from accounts";
+         
+         try (PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) 
+            {
+                if(username.equals(rs.getString("username")) && password.equals(rs.getString("password")))
+                {
+                    return true;        
+                }
+                
+                return false;
+                
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            
+        }
+         
+         return false;
+    }
+    
     
     
     

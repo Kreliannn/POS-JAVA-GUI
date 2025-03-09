@@ -117,19 +117,27 @@ public class loginFrame extends javax.swing.JFrame {
         String usernameInput = username.getText();
         String passwordInput = password.getText();
         
+        dbHelper myDb = new dbHelper();
+        
         if(usernameInput.equals("")|| passwordInput.equals(""))
         {
             JOptionPane.showMessageDialog(null, "empty field!!", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        else if(!usernameInput.equals("krel") || !passwordInput.equals("123"))
-        {
-            JOptionPane.showMessageDialog(null, "invalid credentials!!", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        else
+        else if(usernameInput.equals("admin") && passwordInput.equals("123"))
         {
             this.dispose(); 
             shopFrame shopPage = new shopFrame();          
             shopPage.setVisible(true);
+        }
+        else if(myDb.checkAccountExist(usernameInput, passwordInput))
+        {
+            this.dispose(); 
+            shopFrame shopPage = new shopFrame();          
+            shopPage.setVisible(true);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "invalid credentials!!", "Error", JOptionPane.ERROR_MESSAGE);
         }
         
     }//GEN-LAST:event_loginButtonActionPerformed
