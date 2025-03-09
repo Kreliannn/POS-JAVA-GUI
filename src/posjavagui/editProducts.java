@@ -74,6 +74,8 @@ public class editProducts extends javax.swing.JFrame {
             // Buy Button
             JButton saveButton = new JButton("save");
             
+            JButton removeButton = new JButton("remove");
+            
 
 
 
@@ -94,6 +96,19 @@ public class editProducts extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "something went wrong!", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             });
+            
+            
+            removeButton.addActionListener((e) -> {
+                int id = product.getId();
+                dbHelper myDb = new dbHelper();
+                
+                myDb.removeProduct(id);
+                
+                editProducts editProductPage = new editProducts();
+                this.dispose(); 
+                editProductPage.setVisible(true);
+                
+            });
 
             // Add components to panel
             productPanel.add(imageLabel); // Add image first
@@ -106,6 +121,7 @@ public class editProducts extends javax.swing.JFrame {
             productPanel.add(stocksField);
             
             productPanel.add(saveButton);
+            productPanel.add(removeButton);
 
             // Add product panel to menu
             menu.add(productPanel);

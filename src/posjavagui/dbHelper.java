@@ -80,6 +80,20 @@ public class dbHelper {
         }
     }
     
+    public void removeProduct(int id)
+    {
+        String query = "delete from products where product_id = ?";
+        
+        try{
+             PreparedStatement stmt = conn.prepareStatement(query);
+             stmt.setInt(1, id);  
+             stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    
     
     public boolean checkAccountExist(String username, String password)
     {
