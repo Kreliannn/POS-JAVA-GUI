@@ -93,31 +93,34 @@ public class dbHelper {
         }
     }
     
+    public void addAccount(String username, String password)
+    {
+        String query = "insert into accounts (username, password) values(?,?)";
+        
+        try{
+             PreparedStatement stmt = conn.prepareStatement(query);
+             stmt.setString(1, username);  
+             stmt.setString(2, password);  
+             stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
     
     
     public boolean checkAccountExist(String username, String password)
     {
-         String query = "select * from accounts";
-         
-         try (PreparedStatement stmt = conn.prepareStatement(query);
-             ResultSet rs = stmt.executeQuery()) {
-
-            while (rs.next()) 
-            {
-                if(username.equals(rs.getString("username")) && password.equals(rs.getString("password")))
-                {
-                    return true;        
-                }
-                
-                return false;
-                
-            }
+        String query = "SELECT * FROM accounts WHERE username = ? AND password = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, username);
+            stmt.setString(2, password);
+            ResultSet rs = stmt.executeQuery();
+            return rs.next(); // Returns true if a record exists, false otherwise
         } catch (SQLException e) {
             e.printStackTrace();
-            
         }
-         
-         return false;
+        return false;
     }
     
     

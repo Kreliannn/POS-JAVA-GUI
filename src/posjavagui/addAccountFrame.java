@@ -145,7 +145,12 @@ public class addAccountFrame extends javax.swing.JFrame {
             return;
         }
         
-        System.out.println("account created");
+        dbHelper myDb = new dbHelper();
+        myDb.addAccount(username, password);
+        JOptionPane.showMessageDialog(null, "account successfullyadded", "Success", JOptionPane.INFORMATION_MESSAGE);
+        usernameField.setText("");
+        passwordField.setText("");
+        confirmPasswordField.setText("");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
