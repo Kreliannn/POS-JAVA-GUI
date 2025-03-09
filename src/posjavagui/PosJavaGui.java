@@ -7,6 +7,7 @@ public class PosJavaGui {
   
     public static void main(String[] args) {
        loginFrame loginPage = new loginFrame();
+       loginPage.setLocationRelativeTo(null); 
        loginPage.setVisible(true);
     }
     

@@ -19,6 +19,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import java.awt.Font;
+
 
 /**
  *
@@ -32,6 +34,8 @@ public class editProducts extends javax.swing.JFrame {
     public editProducts() {
         initComponents();
         
+        header.setFont(new Font("Arial", Font.BOLD, 18));
+        
         dbHelper db = new dbHelper();
         List<Product> products = db.getProducts();
         
@@ -42,7 +46,7 @@ public class editProducts extends javax.swing.JFrame {
         {
             JPanel productPanel = new JPanel();
             productPanel.setLayout(new BoxLayout(productPanel, BoxLayout.Y_AXIS)); // Vertical layout
-            productPanel.setPreferredSize(new Dimension(150, 240)); // Adjusted height
+            productPanel.setPreferredSize(new Dimension(150, 250)); // Adjusted height
             productPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK)); // Border
             
            ImageIcon icon = new ImageIcon(getClass().getResource("/posjavagui/assets/" + product.getImg()));
@@ -147,24 +151,12 @@ public class editProducts extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        menu = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        header = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        menu = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        menu.setBackground(new java.awt.Color(153, 153, 153));
-
-        javax.swing.GroupLayout menuLayout = new javax.swing.GroupLayout(menu);
-        menu.setLayout(menuLayout);
-        menuLayout.setHorizontalGroup(
-            menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 706, Short.MAX_VALUE)
-        );
-        menuLayout.setVerticalGroup(
-            menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 433, Short.MAX_VALUE)
-        );
 
         jButton1.setText("home");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -173,7 +165,24 @@ public class editProducts extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("EDIT PRODUCTS");
+        header.setText("EDIT PRODUCTS");
+
+        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+        menu.setBackground(new java.awt.Color(153, 153, 153));
+
+        javax.swing.GroupLayout menuLayout = new javax.swing.GroupLayout(menu);
+        menu.setLayout(menuLayout);
+        menuLayout.setHorizontalGroup(
+            menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 698, Short.MAX_VALUE)
+        );
+        menuLayout.setVerticalGroup(
+            menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 427, Short.MAX_VALUE)
+        );
+
+        jScrollPane1.setViewportView(menu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -182,12 +191,13 @@ public class editProducts extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1)
                         .addGap(227, 227, 227)
-                        .addComponent(jLabel1))
-                    .addComponent(menu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(21, Short.MAX_VALUE))
+                        .addComponent(header)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -195,10 +205,10 @@ public class editProducts extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(menu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                    .addComponent(header))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
@@ -207,6 +217,7 @@ public class editProducts extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.dispose(); 
         shopFrame shopPage = new shopFrame();
+        shopPage.setLocationRelativeTo(null);
         shopPage.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -246,8 +257,9 @@ public class editProducts extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel header;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel menu;
     // End of variables declaration//GEN-END:variables
 }
