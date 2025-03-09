@@ -60,6 +60,10 @@ public class shopFrame extends javax.swing.JFrame {
             
             // Buy Button
             JButton buyButton = new JButton("Buy");
+            buyButton.setPreferredSize(new Dimension(300,30));
+            buyButton.setMinimumSize(new Dimension(300, 30));
+            buyButton.setMaximumSize(new Dimension(300, 30));
+
             
 
 

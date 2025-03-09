@@ -73,9 +73,18 @@ public class editProducts extends javax.swing.JFrame {
             
             // Buy Button
             JButton saveButton = new JButton("save");
+            saveButton.setPreferredSize(new Dimension(300,30));
+            saveButton.setMinimumSize(new Dimension(300, 30));
+            saveButton.setMaximumSize(new Dimension(300, 30));
+            saveButton.setBackground(new Color(100, 200, 100));
+            saveButton.setForeground(Color.WHITE);
             
             JButton removeButton = new JButton("remove");
-            
+            removeButton.setPreferredSize(new Dimension(300,30));
+            removeButton.setMinimumSize(new Dimension(300, 30));
+            removeButton.setMaximumSize(new Dimension(300, 30));
+            removeButton.setBackground(new Color(220, 80, 80));
+            removeButton.setForeground(Color.WHITE);
 
 
 
