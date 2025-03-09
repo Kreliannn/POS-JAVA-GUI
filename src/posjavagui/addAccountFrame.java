@@ -4,7 +4,8 @@
  * and open the template in the editor.
  */
 package posjavagui;
-
+ import javax.swing.JOptionPane;
+          
 /**
  *
  * @author U
@@ -54,6 +55,11 @@ public class addAccountFrame extends javax.swing.JFrame {
         jLabel4.setText("confirm password: ");
 
         jButton1.setText("add account");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("home");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -122,6 +128,25 @@ public class addAccountFrame extends javax.swing.JFrame {
         shopFrame shopPage = new shopFrame();
         shopPage.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String username = usernameField.getText();
+        String password = passwordField.getText();
+        String confirmPassword = confirmPasswordField.getText();
+        
+        if(username.equals("") | password.equals("") || confirmPassword.equals(""))
+        {
+            JOptionPane.showMessageDialog(null, "empty field!!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        else if(!confirmPassword.equals(password))
+        {
+            JOptionPane.showMessageDialog(null, "confirm password not matched", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        System.out.println("account created");
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
