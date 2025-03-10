@@ -21,7 +21,7 @@ public class dbHelper {
     }
 
     // Method to get all products
-    public List<Product> getProducts(String category) {
+    public List<Product> getProducts() {
         List<Product> productList = new ArrayList<>();
         String query = "SELECT * FROM products";
         
@@ -29,6 +29,7 @@ public class dbHelper {
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
+                
                 Product product = new Product(
                     rs.getInt("product_id"),
                     rs.getString("product_name"),
@@ -40,6 +41,8 @@ public class dbHelper {
                 
                 
                 productList.add(product);
+                
+                
             }
         } catch (SQLException e) {
             e.printStackTrace();

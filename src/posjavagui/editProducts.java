@@ -37,7 +37,7 @@ public class editProducts extends javax.swing.JFrame {
         header.setFont(new Font("Arial", Font.BOLD, 18));
         
         dbHelper db = new dbHelper();
-        List<Product> products = db.getProducts("all");
+        List<Product> products = db.getProducts();
         
         menu.setLayout(new GridLayout(0, 4, 10, 10)); // Adjust columns as needed
        
