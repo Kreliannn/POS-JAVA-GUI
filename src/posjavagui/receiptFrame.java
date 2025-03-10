@@ -4,7 +4,8 @@
  * and open the template in the editor.
  */
 package posjavagui;
-
+import java.util.*;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author U
@@ -17,9 +18,21 @@ public class receiptFrame extends javax.swing.JFrame {
      * 
      */
     
-    public receiptFrame(String name) {
+    public receiptFrame(Transaction myTransaction) {
         initComponents();
+        receiptId.setText(myTransaction.getTransactionId());
+        receiptTotal.setText(Integer.toString(myTransaction.getTotal()));
+        cash.setText(Integer.toString(myTransaction.getCash()));
+        change.setText(Integer.toString(myTransaction.getPaymentChange()));
+        dateVariable.setText(myTransaction.getDate());
         
+        List<SoldProduct> soldProducts = myTransaction.getSoldProducts();
+        
+        for (SoldProduct product : soldProducts) 
+        {
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.addRow(new Object[]{product.getQty(), product.getName(), product.getPrice(), product.getTotal()});
+        }
         
     }
 
@@ -50,7 +63,7 @@ public class receiptFrame extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         cash = new javax.swing.JLabel();
         change = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        dateVariable = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -143,10 +156,10 @@ public class receiptFrame extends javax.swing.JFrame {
             .addGap(0, 9, Short.MAX_VALUE)
         );
 
-        jLabel5.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel5.setText("CASH: ");
 
-        jLabel6.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel6.setText("CHANGE: ");
 
         jPanel5.setBackground(new java.awt.Color(0, 0, 0));
@@ -159,20 +172,20 @@ public class receiptFrame extends javax.swing.JFrame {
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 9, Short.MAX_VALUE)
+            .addGap(0, 8, Short.MAX_VALUE)
         );
 
-        jLabel7.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel7.setText("Receipt Date: ");
 
-        cash.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        cash.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         cash.setText("0");
 
-        change.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        change.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         change.setText("0");
 
-        jLabel8.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel8.setText("20/22/334/33");
+        dateVariable.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        dateVariable.setText("20/22/334/33");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -187,13 +200,10 @@ public class receiptFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(93, 93, 93)
-                        .addComponent(jLabel3))
-                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(receiptId))
+                        .addComponent(receiptId, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel1)
@@ -203,21 +213,22 @@ public class receiptFrame extends javax.swing.JFrame {
                         .addComponent(receiptTotal))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cash))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(change))))
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cash)
+                        .addGap(49, 49, 49)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(change))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel8)))
-                .addContainerGap(88, Short.MAX_VALUE))
+                        .addComponent(dateVariable))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(98, 98, 98)
+                        .addComponent(jLabel3)))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,18 +256,16 @@ public class receiptFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(cash))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cash)
                     .addComponent(jLabel6)
                     .addComponent(change))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jLabel8))
-                .addGap(19, 19, 19))
+                    .addComponent(dateVariable))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -292,7 +301,7 @@ public class receiptFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new receiptFrame("").setVisible(true);
+                new receiptFrame(new Transaction("","",0,0,0)).setVisible(true);
             }
         });
     }
@@ -300,6 +309,7 @@ public class receiptFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel cash;
     private javax.swing.JLabel change;
+    private javax.swing.JLabel dateVariable;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -307,7 +317,6 @@ public class receiptFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

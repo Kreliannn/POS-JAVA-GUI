@@ -580,12 +580,7 @@ public class shopFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_dashboardActionPerformed
 
     private void payButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_payButtonActionPerformed
-        /*receiptFrame receiptPage = new receiptFrame("jiji santos");
-        receiptPage.setLocationRelativeTo(null);
-        receiptPage.setVisible(true);*/
-        
-        
-        
+      
         dbHelper myDb = new dbHelper();
         
         String transaction_id = UUID.randomUUID().toString();
@@ -610,12 +605,16 @@ public class shopFrame extends javax.swing.JFrame {
             int qty = Integer.parseInt(model.getValueAt(i, 3).toString()); // 2 is the index of the third column
             int total = Integer.parseInt(model.getValueAt(i, 4).toString()); // 3 is the index of the third column
             myDb.insertSoldProduct(qty, product_id, transaction_id);
-            
+            myDb.updateStocks(qty, product_id);
         }
         
         int change = cash - transactionTotal;
         
         myDb.addTransaction(transaction_id, date, transactionTotal, cash, change);
+        
+        receiptFrame receiptPage = new receiptFrame(new Transaction(transaction_id, date, transactionTotal, cash, change));
+        receiptPage.setLocationRelativeTo(null);
+        receiptPage.setVisible(true);
         
     }//GEN-LAST:event_payButtonActionPerformed
 

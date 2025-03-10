@@ -16,15 +16,13 @@ import java.util.List;
 
 
 public class Transaction {
-     private int id;
      private String transaction_id;
-     private int date;
+     private String date;
      private int total;
      private int cash;
      private int payment_change;
      
-     public Transaction(int id, String transaction_id, int date, int total, int cash, int payment_change) {
-        this.id = id;
+     public Transaction(String transaction_id, String date, int total, int cash, int payment_change) {
         this.transaction_id = transaction_id;
         this.date = date;
         this.total = total;
@@ -41,15 +39,12 @@ public class Transaction {
     
 
     // Getters and Setters (Optional)
-    public int getId() {
-        return id;
-    }
 
     public String getTransactionId() {
         return transaction_id;
     }
 
-    public int getDate() {
+    public String getDate() {
         return date;
     }
 

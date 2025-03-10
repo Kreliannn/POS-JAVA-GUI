@@ -52,11 +52,8 @@ public class dbHelper {
     
     public List<SoldProduct> getSoldProducts(String transaction_id) {
         List<SoldProduct> productList = new ArrayList<>();
-        String query = "SELECT * FROM soldProducts join transactions on soldProducts.transaction_id = transaction.transaction_id where transaction_id = " + transaction_id;
-        if(transaction_id.equals("none"))
-        {
-            query = "SELECT * FROM soldProducts join transactions on soldProducts.transaction_id = transaction.transaction_id";
-        }
+        String query = "SELECT * FROM soldProduct join products on soldProduct.product_id = products.product_id where soldProduct.transaction_id = " + "'" + transaction_id + "'";
+        System.out.println(query);
         try (PreparedStatement stmt = conn.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
 
@@ -71,7 +68,7 @@ public class dbHelper {
                 );
                 
                 
-                //productList.add(product);
+                productList.add(product);
                 
                 
             }
@@ -82,7 +79,43 @@ public class dbHelper {
     }
     
     
+    public void updateStocks(int qty, int id)
+    {
+        String query = "update products set product_stocks = ? where product_id = ?";
+        
+        int currentStocks = getStocksCount(id);
+        int newStocks = currentStocks - qty;
+        
+        System.out.println("current: " + currentStocks);
+        System.out.println("newStocks: " + newStocks); 
+        
+        try{
+             PreparedStatement stmt = conn.prepareStatement(query);
+             stmt.setInt(1, newStocks);
+             stmt.setInt(2, id);
+             stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     
+    public int getStocksCount(int id)
+    {
+        String query = "select * from products where product_id = " + "'" + id + "'";
+         try{
+               PreparedStatement stmt = conn.prepareStatement(query);
+                ResultSet rs = stmt.executeQuery(); 
+
+                if (rs.next()) {
+                    return rs.getInt("product_stocks"); 
+                }
+             
+             return 0; // change
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        } 
+    }
     
     
     public Boolean addProduct(Product myProduct)
