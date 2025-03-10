@@ -317,7 +317,7 @@
                   <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="itemSold" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="itemSoldVariable" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -329,7 +329,7 @@
                   <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                   <Component id="itemSold" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                  <Component id="itemSoldVariable" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="30" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -347,7 +347,7 @@
             <Property name="text" type="java.lang.String" value="item sold: "/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel8">
+        <Component class="javax.swing.JLabel" name="itemSoldVariable">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="48" style="0"/>

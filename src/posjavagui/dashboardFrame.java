@@ -21,6 +21,8 @@ public class dashboardFrame extends javax.swing.JFrame {
         
         productCount.setText(Integer.toString(myDb.getProductsCount()));
         accountCount.setText(Integer.toString(myDb.getAccounts()));
+        totalSales.setText(Integer.toString(myDb.getTotalSales()));
+        itemSoldVariable.setText(Integer.toString(myDb.getItemSold()));
     }
 
     /**
@@ -46,7 +48,7 @@ public class dashboardFrame extends javax.swing.JFrame {
         accountCount = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         itemSold = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        itemSoldVariable = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         numberOfProducts = new javax.swing.JLabel();
         productCount = new javax.swing.JLabel();
@@ -183,9 +185,9 @@ public class dashboardFrame extends javax.swing.JFrame {
         itemSold.setForeground(new java.awt.Color(255, 255, 255));
         itemSold.setText("item sold: ");
 
-        jLabel8.setFont(new java.awt.Font("Arial", 0, 48)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("0");
+        itemSoldVariable.setFont(new java.awt.Font("Arial", 0, 48)); // NOI18N
+        itemSoldVariable.setForeground(new java.awt.Color(255, 255, 255));
+        itemSoldVariable.setText("0");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -195,7 +197,7 @@ public class dashboardFrame extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(itemSold)
-                    .addComponent(jLabel8))
+                    .addComponent(itemSoldVariable))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -204,7 +206,7 @@ public class dashboardFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(itemSold)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel8)
+                .addComponent(itemSoldVariable)
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
@@ -343,13 +345,13 @@ public class dashboardFrame extends javax.swing.JFrame {
     private javax.swing.JLabel accountCount;
     private javax.swing.JLabel accounts;
     private javax.swing.JLabel itemSold;
+    private javax.swing.JLabel itemSoldVariable;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

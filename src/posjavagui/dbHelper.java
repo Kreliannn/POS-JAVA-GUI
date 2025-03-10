@@ -199,11 +199,7 @@ public class dbHelper {
             return 0;
         } 
     }
-    
-    public int getItemSold()
-    {
-        return 0;
-    }
+ 
     
     public int getAccounts()
     {
@@ -225,7 +221,38 @@ public class dbHelper {
     
     public int getTotalSales()
     {
-        return 0;
+        String query = "select sum(total) as totalSales from transactions";
+         try{
+               PreparedStatement stmt = conn.prepareStatement(query);
+                ResultSet rs = stmt.executeQuery(); 
+
+                if (rs.next()) {
+                    return rs.getInt("totalSales"); 
+                }
+             
+             return 0; // change
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        } 
+    }
+    
+    public int getItemSold()
+    {
+        String query = "select sum(qty) as qty from soldProduct";
+         try{
+               PreparedStatement stmt = conn.prepareStatement(query);
+                ResultSet rs = stmt.executeQuery(); 
+
+                if (rs.next()) {
+                    return rs.getInt("qty"); 
+                }
+             
+             return 0; // change
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        } 
     }
     
     
