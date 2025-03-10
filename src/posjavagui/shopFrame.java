@@ -4,11 +4,13 @@
  * and open the template in the editor.
  */
 package posjavagui;
+import java.util.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
 import java.util.List;
 import javax.swing.*;
 import java.awt.*;
+import java.time.LocalDate;
 /**
  *
  * @author U
@@ -78,14 +80,14 @@ public class shopFrame extends javax.swing.JFrame {
                     int quantity = Integer.parseInt(quantityText);
                     if (quantity > 0 && quantity <= product.getStocks()) {
                         String item = product.getName();
-                        float price = product.getPrice();
-                        float total = price * quantity;
+                        int price = product.getPrice();
+                        int total = price * quantity;
                         String category = product.getCategory();
 
                         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
                         model.addRow(new Object[]{item, category, quantity, total});
 
-                        float totalVariableConvert = Float.parseFloat(totalVariable.getText());
+                        int totalVariableConvert = Integer.parseInt(totalVariable.getText());
 
                         totalVariable.setText(String.valueOf(totalVariableConvert + total)); 
                         
@@ -114,17 +116,14 @@ public class shopFrame extends javax.swing.JFrame {
             }
             else if(product.getCategory().equals("drinks"))
             {
-                System.out.println(product.getName() + "drinkss");
                 menuDrinks.add(productPanel);
             }
             else if(product.getCategory().equals("dessert"))
             {
-                System.out.println(product.getName());
                 menuDesert.add(productPanel);
             }
             else if(product.getCategory().equals("beverage"))
             {
-                System.out.println(product.getName());
                 menuBeverage.add(productPanel);
             }
         }
@@ -139,12 +138,12 @@ public class shopFrame extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         int rowCount = model.getRowCount(); // Get total rows
         
-        float total = 0;
+        int total = 0;
 
         for (int i = 0; i < rowCount; i++) {
-            Object value = model.getValueAt(i, 2); // 2 is the index of the third column
+            Object value = model.getValueAt(i, 3); // 2 is the index of the third column
             System.out.println(value); // Print or store the value
-            total += Float.parseFloat(value.toString());;
+            total += Integer.parseInt(value.toString());;
         }
         
         totalVariable.setText(String.valueOf(total));
@@ -187,6 +186,8 @@ public class shopFrame extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         totalVariable = new javax.swing.JLabel();
         removeCart = new javax.swing.JButton();
+        payment = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         menuDesert = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -211,12 +212,25 @@ public class shopFrame extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Integer.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
         jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setResizable(false);
+            jTable1.getColumnModel().getColumn(1).setResizable(false);
+            jTable1.getColumnModel().getColumn(2).setResizable(false);
+            jTable1.getColumnModel().getColumn(3).setResizable(false);
+        }
 
         jPanel2.setBackground(new java.awt.Color(51, 51, 51));
 
@@ -312,7 +326,7 @@ public class shopFrame extends javax.swing.JFrame {
         );
         menuFoodLayout.setVerticalGroup(
             menuFoodLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 602, Short.MAX_VALUE)
+            .addGap(0, 625, Short.MAX_VALUE)
         );
 
         jScrollPane2.setViewportView(menuFood);
@@ -329,6 +343,7 @@ public class shopFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel6.setText("TOTAL: ");
 
         totalVariable.setText("0");
@@ -340,6 +355,8 @@ public class shopFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("payment: ");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -348,6 +365,10 @@ public class shopFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(payButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(payment)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -360,13 +381,16 @@ public class shopFrame extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel6)
-                        .addComponent(totalVariable))
-                    .addComponent(removeCart, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(totalVariable)
+                    .addComponent(removeCart, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(payButton, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
+                .addComponent(payment, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(payButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -383,7 +407,7 @@ public class shopFrame extends javax.swing.JFrame {
         );
         menuDesertLayout.setVerticalGroup(
             menuDesertLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 585, Short.MAX_VALUE)
+            .addGap(0, 608, Short.MAX_VALUE)
         );
 
         jScrollPane4.setViewportView(menuDesert);
@@ -407,7 +431,7 @@ public class shopFrame extends javax.swing.JFrame {
         );
         menuBeverageLayout.setVerticalGroup(
             menuBeverageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 585, Short.MAX_VALUE)
+            .addGap(0, 608, Short.MAX_VALUE)
         );
 
         jScrollPane5.setViewportView(menuBeverage);
@@ -426,7 +450,7 @@ public class shopFrame extends javax.swing.JFrame {
         );
         menuDrinksLayout.setVerticalGroup(
             menuDrinksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 602, Short.MAX_VALUE)
+            .addGap(0, 625, Short.MAX_VALUE)
         );
 
         jScrollPane6.setViewportView(menuDrinks);
@@ -491,9 +515,10 @@ public class shopFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 498, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane6)
                     .addComponent(jScrollPane2)
                     .addComponent(jScrollPane5)
@@ -553,10 +578,32 @@ public class shopFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_dashboardActionPerformed
 
     private void payButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_payButtonActionPerformed
-        receiptFrame receiptPage = new receiptFrame("jiji santos");
-        
+        /*receiptFrame receiptPage = new receiptFrame("jiji santos");
         receiptPage.setLocationRelativeTo(null);
-        receiptPage.setVisible(true);
+        receiptPage.setVisible(true);*/
+        
+        String id = UUID.randomUUID().toString();
+
+        LocalDate currentDate = LocalDate.now();
+        String date = currentDate.toString();
+        int transactionTotal = 0;
+        int cash = Integer.parseInt(payment.getText());
+
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        int rowCount = model.getRowCount(); // Get total rows
+       
+        for (int i = 0; i < rowCount; i++) {
+            String name = model.getValueAt(i, 0).toString(); // 0 is the index of the third column
+            String type = model.getValueAt(i, 1).toString(); // 1 is the index of the third column
+            String qty = model.getValueAt(i, 2).toString(); // 2 is the index of the third column
+            String total = model.getValueAt(i, 3).toString(); // 3 is the index of the third column
+            
+        }
+        
+        int change = transactionTotal - cash;
+        
+        
+        
     }//GEN-LAST:event_payButtonActionPerformed
 
     /**
@@ -601,6 +648,7 @@ public class shopFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
@@ -622,6 +670,7 @@ public class shopFrame extends javax.swing.JFrame {
     private javax.swing.JPanel menuDrinks;
     private javax.swing.JPanel menuFood;
     private javax.swing.JButton payButton;
+    private javax.swing.JTextField payment;
     private javax.swing.JButton removeCart;
     private javax.swing.JLabel totalVariable;
     // End of variables declaration//GEN-END:variables
