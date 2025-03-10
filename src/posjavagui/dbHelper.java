@@ -21,7 +21,7 @@ public class dbHelper {
     }
 
     // Method to get all products
-    public List<Product> getProducts() {
+    public List<Product> getProducts(String category) {
         List<Product> productList = new ArrayList<>();
         String query = "SELECT * FROM products";
         
@@ -34,8 +34,11 @@ public class dbHelper {
                     rs.getString("product_name"),
                     rs.getString("product_img"),
                     rs.getInt("price"),
-                    rs.getInt("product_stocks")  
+                    rs.getInt("product_stocks"),
+                    rs.getString("product_category")
                 );
+                
+                
                 productList.add(product);
             }
         } catch (SQLException e) {
@@ -46,7 +49,7 @@ public class dbHelper {
     
     public Boolean addProduct(Product myProduct)
     {
-        String query = "insert into products(product_name, product_img, price, product_stocks) values (?,?,?,?)";
+        String query = "insert into products(product_name, product_img, price, product_stocks, product_category) values (?,?,?,?,?)";
         
         try{
              PreparedStatement stmt = conn.prepareStatement(query);
@@ -54,6 +57,7 @@ public class dbHelper {
              stmt.setString(2, myProduct.getImg());
              stmt.setInt(3, myProduct.getPrice());
              stmt.setInt(4, myProduct.getStocks());
+             stmt.setString(5, myProduct.getCategory());
              stmt.executeUpdate();
              return true;
         } catch (SQLException e) {
