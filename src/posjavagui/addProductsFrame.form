@@ -73,6 +73,8 @@
                   </Group>
                   <Group type="102" attributes="0">
                       <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="imgNameLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
@@ -139,7 +141,10 @@
                   <Component id="drinksButton" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="8" max="32767" attributes="0"/>
-              <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="imgNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="uploadBtn" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -237,17 +242,28 @@
     </Component>
     <Component class="javax.swing.JRadioButton" name="dessertButton">
       <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="buttonGroup1"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="dessert"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JRadioButton" name="beverageButton">
       <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="buttonGroup1"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="beverage"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
       <Properties>
         <Property name="text" type="java.lang.String" value="category: "/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="imgNameLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="no selected image"/>
       </Properties>
     </Component>
   </SubComponents>

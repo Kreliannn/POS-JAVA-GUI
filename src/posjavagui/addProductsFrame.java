@@ -55,6 +55,7 @@ public class addProductsFrame extends javax.swing.JFrame {
         dessertButton = new javax.swing.JRadioButton();
         beverageButton = new javax.swing.JRadioButton();
         jLabel7 = new javax.swing.JLabel();
+        imgNameLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("sdsa");
@@ -109,11 +110,15 @@ public class addProductsFrame extends javax.swing.JFrame {
             }
         });
 
+        buttonGroup1.add(dessertButton);
         dessertButton.setText("dessert");
 
+        buttonGroup1.add(beverageButton);
         beverageButton.setText("beverage");
 
         jLabel7.setText("category: ");
+
+        imgNameLabel.setText("no selected image");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -148,6 +153,8 @@ public class addProductsFrame extends javax.swing.JFrame {
                                 .addGap(75, 75, 75))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(imgNameLabel)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -202,7 +209,9 @@ public class addProductsFrame extends javax.swing.JFrame {
                     .addComponent(jLabel7)
                     .addComponent(drinksButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                .addComponent(jLabel5)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(imgNameLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(uploadBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -229,11 +238,28 @@ public class addProductsFrame extends javax.swing.JFrame {
         dbHelper myDb = new dbHelper();
         
         String name = productName.getText();
-        String img = productImg.getText();
+        String img = imgNameLabel.getText();
         int price = Integer.parseInt(!productPrice.getText().equals("") ? productPrice.getText() : "0");
         int stocks = Integer.parseInt(!productStocks.getText().equals("") ? productStocks.getText() : "0");
-        String category = (foodButton.isSelected()) ? "food" : "drinks";
-   
+        String category = "";
+        
+        if(foodButton.isSelected())
+        {
+            category = "food";
+        }
+        else if(drinksButton.isSelected())
+        {
+            category = "drinks";
+        }
+        else if(dessertButton.isSelected())
+        {
+            category = "dessert";
+        }
+        else if(beverageButton.isSelected())
+        {
+            category = "beverage";
+        }
+        
         if(name.equals("") || img.equals("") || price == 0 || stocks == 0)
         {
             JOptionPane.showMessageDialog(null, "empty field!!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -246,7 +272,7 @@ public class addProductsFrame extends javax.swing.JFrame {
            productName.setText("");
            productPrice.setText("");
            productStocks.setText("");
-           productImg.setText("");
+           imgNameLabel.setText("");
         }
         else
         {
@@ -280,7 +306,7 @@ public class addProductsFrame extends javax.swing.JFrame {
                     Files.copy(selectedFile.toPath(), destination.toPath(), StandardCopyOption.REPLACE_EXISTING);
                     JOptionPane.showMessageDialog(null, "Image uploaded successfully!\nSaved as: " + uniqueFileName, "Success", JOptionPane.INFORMATION_MESSAGE);
 
-                    productImg.setText(uniqueFileName); // Set the new filename in your UI
+                    imgNameLabel.setText(uniqueFileName); // Set the new filename in your UI
 
                 } catch (IOException ex) {
                     JOptionPane.showMessageDialog(null, "Error saving image: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -338,6 +364,7 @@ public class addProductsFrame extends javax.swing.JFrame {
     private javax.swing.JRadioButton dessertButton;
     private javax.swing.JRadioButton drinksButton;
     private javax.swing.JRadioButton foodButton;
+    private javax.swing.JLabel imgNameLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
