@@ -50,10 +50,13 @@ public class dbHelper {
         return productList;
     }
     
-    public List<SoldProduct> getSoldProducts() {
+    public List<SoldProduct> getSoldProducts(String transaction_id) {
         List<SoldProduct> productList = new ArrayList<>();
-        String query = "SELECT * FROM soldProducts join transactions on soldProducts.transaction_id = transaction.transaction_id";
-        
+        String query = "SELECT * FROM soldProducts join transactions on soldProducts.transaction_id = transaction.transaction_id where transaction_id = " + transaction_id;
+        if(transaction_id.equals("none"))
+        {
+            query = "SELECT * FROM soldProducts join transactions on soldProducts.transaction_id = transaction.transaction_id";
+        }
         try (PreparedStatement stmt = conn.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
 
@@ -61,9 +64,9 @@ public class dbHelper {
                 
                 SoldProduct product = new SoldProduct(
                     rs.getInt("id"),
-                    rs.getString("qty"),
+                    rs.getInt("qty"),
+                    rs.getString("product_name"),
                     rs.getInt("price"),
-                    rs.getInt("product_stocks"),
                     rs.getString("product_category")
                 );
                 
@@ -208,6 +211,37 @@ public class dbHelper {
     }
     
     
+    public void insertSoldProduct(int qty, int product_id, String transaction_id)
+    {
+        String query = "insert into soldProduct (qty, product_id, transaction_id) values(?,?,?)";
+        
+        try{
+             PreparedStatement stmt = conn.prepareStatement(query);
+             stmt.setInt(1, qty);  
+             stmt.setInt(2, product_id);  
+             stmt.setString(3, transaction_id); 
+             stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void addTransaction(String transaction_id, String date, int total, int cash, int change)
+    {
+        String query = "insert into transactions (transaction_id, date, total, cash, payment_change) values(?,?,?,?,?)";
+        
+        try{
+             PreparedStatement stmt = conn.prepareStatement(query);
+             stmt.setString(1, transaction_id);  
+             stmt.setString(2, date);
+             stmt.setInt(3, total);  
+             stmt.setInt(4, cash); 
+             stmt.setInt(5, change);  
+             stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     
     
     

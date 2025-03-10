@@ -83,9 +83,10 @@ public class shopFrame extends javax.swing.JFrame {
                         int price = product.getPrice();
                         int total = price * quantity;
                         String category = product.getCategory();
+                        int id = product.getId();
 
                         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-                        model.addRow(new Object[]{item, category, quantity, total});
+                        model.addRow(new Object[]{id, item, category, quantity, total});
 
                         int totalVariableConvert = Integer.parseInt(totalVariable.getText());
 
@@ -141,7 +142,7 @@ public class shopFrame extends javax.swing.JFrame {
         int total = 0;
 
         for (int i = 0; i < rowCount; i++) {
-            Object value = model.getValueAt(i, 3); // 2 is the index of the third column
+            Object value = model.getValueAt(i, 4); // 2 is the index of the third column
             System.out.println(value); // Print or store the value
             total += Integer.parseInt(value.toString());;
         }
@@ -206,14 +207,14 @@ public class shopFrame extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ITEM", "TYPE", "Qnty", "PRICE"
+                "ID", "ITEM", "TYPE", "Qnty", "PRICE"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -230,6 +231,7 @@ public class shopFrame extends javax.swing.JFrame {
             jTable1.getColumnModel().getColumn(1).setResizable(false);
             jTable1.getColumnModel().getColumn(2).setResizable(false);
             jTable1.getColumnModel().getColumn(3).setResizable(false);
+            jTable1.getColumnModel().getColumn(4).setResizable(false);
         }
 
         jPanel2.setBackground(new java.awt.Color(51, 51, 51));
@@ -582,27 +584,38 @@ public class shopFrame extends javax.swing.JFrame {
         receiptPage.setLocationRelativeTo(null);
         receiptPage.setVisible(true);*/
         
-        String id = UUID.randomUUID().toString();
-
+        
+        
+        dbHelper myDb = new dbHelper();
+        
+        String transaction_id = UUID.randomUUID().toString();
         LocalDate currentDate = LocalDate.now();
         String date = currentDate.toString();
-        int transactionTotal = 0;
+        int transactionTotal = Integer.parseInt(totalVariable.getText());
         int cash = Integer.parseInt(payment.getText());
+        
+        if(cash < transactionTotal)
+        {
+            JOptionPane.showMessageDialog(null, "payment is lessthan bill", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         int rowCount = model.getRowCount(); // Get total rows
        
         for (int i = 0; i < rowCount; i++) {
-            String name = model.getValueAt(i, 0).toString(); // 0 is the index of the third column
-            String type = model.getValueAt(i, 1).toString(); // 1 is the index of the third column
-            String qty = model.getValueAt(i, 2).toString(); // 2 is the index of the third column
-            String total = model.getValueAt(i, 3).toString(); // 3 is the index of the third column
+            int product_id = Integer.parseInt(model.getValueAt(i, 0).toString());
+            String name = model.getValueAt(i, 1).toString(); // 0 is the index of the third column
+            String type = model.getValueAt(i, 2).toString(); // 1 is the index of the third column
+            int qty = Integer.parseInt(model.getValueAt(i, 3).toString()); // 2 is the index of the third column
+            int total = Integer.parseInt(model.getValueAt(i, 4).toString()); // 3 is the index of the third column
+            myDb.insertSoldProduct(qty, product_id, transaction_id);
             
         }
         
-        int change = transactionTotal - cash;
+        int change = cash - transactionTotal;
         
-        
+        myDb.addTransaction(transaction_id, date, transactionTotal, cash, change);
         
     }//GEN-LAST:event_payButtonActionPerformed
 

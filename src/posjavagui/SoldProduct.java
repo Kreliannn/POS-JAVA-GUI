@@ -17,7 +17,7 @@ public class SoldProduct {
     private String category;
     private int total;
     
-    public SoldProduct(int id, int qty,  String transaction_id, String name, int price, String category) {
+    public SoldProduct(int id, int qty,  String name, int price, String category) {
         this.id = id;
         this.qty = qty;
         this.name = name;
