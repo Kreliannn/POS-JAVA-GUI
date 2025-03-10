@@ -50,6 +50,38 @@ public class dbHelper {
         return productList;
     }
     
+    public List<SoldProduct> getSoldProducts() {
+        List<SoldProduct> productList = new ArrayList<>();
+        String query = "SELECT * FROM soldProducts join transactions on soldProducts.transaction_id = transaction.transaction_id";
+        
+        try (PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                
+                SoldProduct product = new SoldProduct(
+                    rs.getInt("id"),
+                    rs.getString("qty"),
+                    rs.getInt("price"),
+                    rs.getInt("product_stocks"),
+                    rs.getString("product_category")
+                );
+                
+                
+                //productList.add(product);
+                
+                
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return productList;
+    }
+    
+    
+    
+    
+    
     public Boolean addProduct(Product myProduct)
     {
         String query = "insert into products(product_name, product_img, price, product_stocks, product_category) values (?,?,?,?,?)";
