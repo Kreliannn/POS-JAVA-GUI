@@ -231,6 +231,11 @@ public class shopFrame extends javax.swing.JFrame {
         });
 
         dashboard.setText("Dashboard");
+        dashboard.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dashboardActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("History");
 
@@ -463,6 +468,13 @@ public class shopFrame extends javax.swing.JFrame {
         addAccountPage.setLocationRelativeTo(null); 
         addAccountPage.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void dashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dashboardActionPerformed
+        this.dispose(); 
+         dashboardFrame dashboardPage = new dashboardFrame();
+         dashboardPage.setLocationRelativeTo(null);
+         dashboardPage.setVisible(true);
+    }//GEN-LAST:event_dashboardActionPerformed
 
     /**
      * @param args the command line arguments

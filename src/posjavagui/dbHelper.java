@@ -114,6 +114,51 @@ public class dbHelper {
         }
     }
     
+    public int getProductsCount()
+    {
+        String query = "select count(product_id) as productCount from products";
+         try{
+               PreparedStatement stmt = conn.prepareStatement(query);
+                ResultSet rs = stmt.executeQuery(); 
+
+                if (rs.next()) {
+                    return rs.getInt("productCount"); 
+                }
+             
+             return 0; // change
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        } 
+    }
+    
+    public int getItemSold()
+    {
+        return 0;
+    }
+    
+    public int getAccounts()
+    {
+      String query = "select count(account_id) as accountCount from accounts";
+         try{
+               PreparedStatement stmt = conn.prepareStatement(query);
+                ResultSet rs = stmt.executeQuery(); 
+
+                if (rs.next()) {
+                    return rs.getInt("accountCount"); 
+                }
+             
+             return 0; // change
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        } 
+    }
+    
+    public int getTotalSales()
+    {
+        return 0;
+    }
     
     
     public boolean checkAccountExist(String username, String password)
