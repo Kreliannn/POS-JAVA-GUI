@@ -614,6 +614,7 @@ public class shopFrame extends javax.swing.JFrame {
         
         receiptFrame receiptPage = new receiptFrame(new Transaction(transaction_id, date, transactionTotal, cash, change));
         receiptPage.setLocationRelativeTo(null);
+         this.dispose(); 
         receiptPage.setVisible(true);
         
     }//GEN-LAST:event_payButtonActionPerformed
