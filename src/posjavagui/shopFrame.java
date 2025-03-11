@@ -282,6 +282,11 @@ public class shopFrame extends javax.swing.JFrame {
         });
 
         jButton5.setText("Sales Report");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -633,6 +638,13 @@ public class shopFrame extends javax.swing.JFrame {
          historyPage.setLocationRelativeTo(null);
          historyPage.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        this.dispose(); 
+         salesReport reportPage = new salesReport();
+         reportPage.setLocationRelativeTo(null);
+         reportPage.setVisible(true);
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
