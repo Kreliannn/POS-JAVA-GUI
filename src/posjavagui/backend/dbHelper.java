@@ -1,4 +1,5 @@
-package posjavagui;
+package posjavagui.backend;
+import posjavagui.backend.SoldProduct;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

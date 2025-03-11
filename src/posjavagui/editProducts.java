@@ -5,6 +5,8 @@
  */
 package posjavagui;
 
+import posjavagui.backend.Product;
+import posjavagui.backend.dbHelper;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;

@@ -1,5 +1,5 @@
 
-package posjavagui;
+package posjavagui.backend;
 
 
 

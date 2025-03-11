@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package posjavagui;
+package posjavagui.backend;
 
+import posjavagui.backend.dbHelper;
+import posjavagui.backend.SoldProduct;
 import java.util.List;
 
 /**

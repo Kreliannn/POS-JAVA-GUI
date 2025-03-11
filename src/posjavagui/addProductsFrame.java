@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package posjavagui;
+import posjavagui.backend.Product;
+import posjavagui.backend.dbHelper;
 import javax.swing.JOptionPane;
 import javax.swing.*; // For JFileChooser and JOptionPane
 import java.awt.event.*; // For ActionListener (if needed)

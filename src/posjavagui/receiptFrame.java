@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package posjavagui;
+import posjavagui.backend.Transaction;
+import posjavagui.backend.SoldProduct;
 import java.util.*;
 import javax.swing.table.DefaultTableModel;
 /**

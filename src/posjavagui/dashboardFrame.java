@@ -5,6 +5,8 @@
  */
 package posjavagui;
 
+import posjavagui.backend.dbHelper;
+
 /**
  *
  * @author U

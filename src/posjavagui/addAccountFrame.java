@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package posjavagui;
+import posjavagui.backend.dbHelper;
  import javax.swing.JOptionPane;
           
 /**

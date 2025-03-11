@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package posjavagui;
+import posjavagui.backend.Product;
+import posjavagui.backend.Transaction;
+import posjavagui.backend.dbHelper;
 import java.util.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
