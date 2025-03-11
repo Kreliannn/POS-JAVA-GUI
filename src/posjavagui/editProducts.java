@@ -48,8 +48,33 @@ public class editProducts extends javax.swing.JFrame {
         {
             JPanel productPanel = new JPanel();
             productPanel.setLayout(new BoxLayout(productPanel, BoxLayout.Y_AXIS)); // Vertical layout
-            productPanel.setPreferredSize(new Dimension(150, 250)); // Adjusted height
+            productPanel.setPreferredSize(new Dimension(150, 280)); // Adjusted height
             productPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK)); // Border
+            
+            JButton label = new JButton();
+            label.setPreferredSize(new Dimension(300,30));
+            label.setMinimumSize(new Dimension(300, 30));
+            label.setMaximumSize(new Dimension(300, 30));
+            label.setBackground(Color.WHITE);
+            
+            if(product.getStocks() > 10)
+            {
+                label.setText("High Stocks");
+                label.setForeground(Color.GREEN);
+            }
+            else if(product.getStocks() == 0)
+            {
+                label.setText("Out Of Stocks");
+                label.setForeground(Color.RED);
+            }
+            else
+            {
+                label.setText("Low Stocks");
+                label.setForeground(Color.ORANGE);
+            }
+            
+            
+        
             
            ImageIcon icon = new ImageIcon(getClass().getResource("/posjavagui/assets/" + product.getImg()));
 
@@ -127,6 +152,7 @@ public class editProducts extends javax.swing.JFrame {
             });
 
             // Add components to panel
+            productPanel.add(label);
             productPanel.add(imageLabel); // Add image first
             productPanel.add(nameLabel);
             
