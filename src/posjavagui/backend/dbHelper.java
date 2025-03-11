@@ -287,6 +287,37 @@ public class dbHelper {
         }
     }
     
+    public List<Transaction> getTransactions()
+    {
+        List<Transaction> myTransaction = new ArrayList<>();
+        
+        String query = "SELECT * FROM transactions";
+        System.out.println(query);
+        try (PreparedStatement stmt = conn.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                
+                Transaction transaction = new Transaction(
+                    rs.getString("transaction_id"),
+                    rs.getString("date"),  
+                    rs.getInt("total"),
+                    rs.getInt("cash"),
+                    rs.getInt("payment_change")
+                );
+                
+                
+                myTransaction.add(transaction);
+                
+                
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return myTransaction;
+        
+    }
+    
     public void addTransaction(String transaction_id, String date, int total, int cash, int change)
     {
         String query = "insert into transactions (transaction_id, date, total, cash, payment_change) values(?,?,?,?,?)";

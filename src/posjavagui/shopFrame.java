@@ -275,6 +275,11 @@ public class shopFrame extends javax.swing.JFrame {
         });
 
         jButton4.setText("History");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Sales Report");
 
@@ -621,6 +626,13 @@ public class shopFrame extends javax.swing.JFrame {
         receiptPage.setVisible(true);
         
     }//GEN-LAST:event_payButtonActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        this.dispose(); 
+         historyFrame historyPage = new historyFrame();
+         historyPage.setLocationRelativeTo(null);
+         historyPage.setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
