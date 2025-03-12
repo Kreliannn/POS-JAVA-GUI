@@ -153,16 +153,17 @@ public class dbHelper {
     }
     
     //i uupdate ang product 
-    public boolean updateProduct(int price, int stocks, int id)
+    public boolean updateProduct(String name, int price, int stocks, int id)
     {
-         String query = "UPDATE products SET price = ?, product_stocks = ? WHERE product_id = ?";
+         String query = "UPDATE products SET product_name = ?, price = ?, product_stocks = ? WHERE product_id = ?";
         
         try{
             // pag seset up ng product na iuupdate
              PreparedStatement stmt = conn.prepareStatement(query);
-             stmt.setInt(1, price);
-             stmt.setInt(2, stocks);
-             stmt.setInt(3, id);
+             stmt.setString(1, name);
+             stmt.setInt(2, price);
+             stmt.setInt(3, stocks);
+             stmt.setInt(4, id);
              
               // pag execute sa sql query, pag update ng product sa dsatabase
              stmt.executeUpdate();
@@ -318,7 +319,7 @@ public class dbHelper {
     {
         List<Transaction> myTransaction = new ArrayList<>();
         
-        String query = "SELECT * FROM transactions";
+        String query = "SELECT * FROM transactions order by id desc";
         System.out.println(query);
         try (PreparedStatement stmt = conn.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {

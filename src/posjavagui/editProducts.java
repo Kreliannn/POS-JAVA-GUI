@@ -46,17 +46,20 @@ public class editProducts extends javax.swing.JFrame {
 
         for (Product product : products) 
         {
+            // create jpanel for container
             JPanel productPanel = new JPanel();
             productPanel.setLayout(new BoxLayout(productPanel, BoxLayout.Y_AXIS)); // Vertical layout
-            productPanel.setPreferredSize(new Dimension(150, 280)); // Adjusted height
+            productPanel.setPreferredSize(new Dimension(150, 300)); // Adjusted height
             productPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK)); // Border
             
+            //create button  para sa status ng product
             JButton label = new JButton();
             label.setPreferredSize(new Dimension(300,30));
             label.setMinimumSize(new Dimension(300, 30));
             label.setMaximumSize(new Dimension(300, 30));
             label.setBackground(Color.WHITE);
             
+            // i cehck kung ilan nalang ang stocks at baguhin ang status ng product based sa stocks 
             if(product.getStocks() > 10)
             {
                 label.setText("High Stocks");
@@ -75,7 +78,7 @@ public class editProducts extends javax.swing.JFrame {
             
             
         
-            
+            // picture ng products
            ImageIcon icon = new ImageIcon(getClass().getResource("/posjavagui/assets/" + product.getImg()));
 
             // Resize the image
@@ -102,7 +105,10 @@ public class editProducts extends javax.swing.JFrame {
             JTextField stocksField = new JTextField(1);
             stocksField.setText(Integer.toString(product.getStocks()));
             
-            // Buy Button
+            JTextField nameField = new JTextField(1); // Small text field for quantity
+            nameField.setText(product.getName());
+            
+            // Save Button
             JButton saveButton = new JButton("save");
             saveButton.setPreferredSize(new Dimension(300,30));
             saveButton.setMinimumSize(new Dimension(300, 30));
@@ -119,15 +125,18 @@ public class editProducts extends javax.swing.JFrame {
 
 
 
-            // Add action to Buy button (Optional)
+            // pag pinindot ang save button eto ang mag rurun na code
             saveButton.addActionListener(e -> {
+                // kunin lahat ng information ng product na binili
+                String name = nameField.getText();
                 int price = Integer.parseInt(!priceField.getText().equals("") ? priceField.getText() : "0");
                 int stocks = Integer.parseInt(!stocksField.getText().equals("") ? stocksField.getText() : "0");
                 int id = product.getId();
                 
                 dbHelper myDb = new dbHelper();
                 
-                if(myDb.updateProduct(price, stocks, id))
+                // i update ang value ng products sa database
+                if(myDb.updateProduct(name, price, stocks, id))
                 {
                     editProducts page = new editProducts();
                     this.dispose(); 
@@ -140,13 +149,15 @@ public class editProducts extends javax.swing.JFrame {
                 }
             });
             
-            
+            // pag pinindot ang remove button eto ang mag rurun na code
             removeButton.addActionListener((e) -> {
                 int id = product.getId();
                 dbHelper myDb = new dbHelper();
                 
+                // i remove ang product sa database
                 myDb.removeProduct(id);
                 
+                // i restart ang jframe
                 editProducts editProductPage = new editProducts();
                 this.dispose(); 
                 editProductPage.setLocationRelativeTo(null); 
@@ -157,7 +168,9 @@ public class editProducts extends javax.swing.JFrame {
             // Add components to panel
             productPanel.add(label);
             productPanel.add(imageLabel); // Add image first
+            
             productPanel.add(nameLabel);
+            productPanel.add(nameField);
             
             productPanel.add(priceLabel);
             productPanel.add(priceField);
@@ -247,6 +260,7 @@ public class editProducts extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // bumalik sa shop page
         this.dispose(); 
         shopFrame shopPage = new shopFrame();
         shopPage.setLocationRelativeTo(null);

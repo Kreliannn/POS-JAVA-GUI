@@ -21,19 +21,21 @@ public class salesReport extends javax.swing.JFrame {
     public salesReport() {
         initComponents();
         
+        // kunin ang date ngayong araw
         String Date[] = LocalDate.now().toString().split("-");
         String Day = Date[2];
         String Month = Date[1];
         String Year = Date[0];
         
+        // i display ang date ngayong araw sa  text field
         dsDay.setText(Day);
         dsMonth.setText(Month);
         dsYear.setText(Year);
-        
         msMonth.setText(Month);
         msYear.setText(Year);
     }
     
+    // kunin kung anong month name ng ipapasang number
      public  String getMonthName(String monthNumber) {
         String[] months = {
             "January", "February", "March", "April", "May", "June",
@@ -276,10 +278,12 @@ public class salesReport extends javax.swing.JFrame {
     }//GEN-LAST:event_msMonthActionPerformed
 
     private void daySalesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_daySalesBtnActionPerformed
+        // kunin ang user input
         int day = Integer.parseInt(dsDay.getText());
         int month = Integer.parseInt(dsMonth.getText());
         int year = Integer.parseInt(dsYear.getText());
         
+        // i reset ang value ng table 
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
         
@@ -287,17 +291,22 @@ public class salesReport extends javax.swing.JFrame {
         
         dbHelper myDb = new dbHelper();
         
+        // kunin lahat ng transactions
         List<Transaction> transactions = myDb.getTransactions();
         
+        // mag iterate sa transactions
         for(Transaction transaction : transactions)
         {
+            // kunin ang date kung kelan naganap ang transaction
             String transactionDate[] = transaction.getDate().split("-");
             int transactionDay = Integer.parseInt(transactionDate[2]);
             int transactionMonth = Integer.parseInt(transactionDate[1]);
             int transactionYear = Integer.parseInt(transactionDate[0]);
             
+            // i check kung yung user input na date ay equal sa date ng transaction pag equal sila i add sa table ang transaction pag hindi ay wag ito i add sa table
             if(day == transactionDay && month == transactionMonth && year == transactionYear)
             {
+                // i add yung recipt sa container
                 model.addRow(new Object[]{
                     transaction.getTransactionId(),
                     transaction.getDate(),
@@ -306,11 +315,13 @@ public class salesReport extends javax.swing.JFrame {
                     transaction.getTotal()
                 });
                 
+                // i add yunfg total ng transaction sa total sales
                 totalSales += transaction.getTotal();
             }
             
         }
         
+        // set ng value sa total at sa date
         totalVariable.setText(Integer.toString(totalSales));
         dateVariable.setText(getMonthName(Integer.toString(month)) + " " + day + " " + year);
         
@@ -340,11 +351,13 @@ public class salesReport extends javax.swing.JFrame {
         
         for(Transaction transaction : transactions)
         {
+            // kunin ang date kung kelan naganap ang transaction
             String transactionDate[] = transaction.getDate().split("-");
             String transactionDay = transactionDate[2];
             String transactionMonth = transactionDate[1];
             String transactionYear = transactionDate[0];
             
+            // i check kung yung user input na date ay equal sa date ng transaction pag equal sila i add sa table ang transaction pag hindi ay wag ito i add sa table
             if(month.equals(transactionMonth) && year.equals(transactionYear))
             {
                 model.addRow(new Object[]{
@@ -360,6 +373,7 @@ public class salesReport extends javax.swing.JFrame {
             
         }
         
+         // set ng value sa total at sa date
         totalVariable.setText(Integer.toString(totalSales));
         dateVariable.setText("month of " + getMonthName(month) + " " + year);
     }//GEN-LAST:event_monthSalesBtnActionPerformed

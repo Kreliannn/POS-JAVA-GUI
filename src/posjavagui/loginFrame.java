@@ -20,10 +20,14 @@ public class loginFrame extends javax.swing.JFrame {
      */
     public loginFrame() {
         initComponents();
+        
+        // ayusin ang size ng logo
         scaleImage();
         getContentPane().setBackground(new Color(250, 250, 250)); // Light gray  
     }
     
+    
+    // i resize ang logo
      private void scaleImage() {
         ImageIcon icon = new ImageIcon("src/posjavagui/assets/logo.jpg"); 
         Image img = icon.getImage();
@@ -137,24 +141,28 @@ public class loginFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_passwordActionPerformed
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
+        /// kunin ang value sa text field
         String usernameInput = username.getText();
         String passwordInput = password.getText();
         
         dbHelper myDb = new dbHelper();
         
+        // i cehck kung may emptry input at pag meron mag send ng error message
         if(usernameInput.equals("")|| passwordInput.equals(""))
         {
             JOptionPane.showMessageDialog(null, "empty field!!", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        else if(usernameInput.equals("admin") && passwordInput.equals("123"))
+        else if(usernameInput.equals("admin") && passwordInput.equals("123")) // i check if tama yung username at passowrd
         {
+            // pumunta sa shop page
             this.dispose(); 
             shopFrame shopPage = new shopFrame(); 
             shopPage.setLocationRelativeTo(null);
             shopPage.setVisible(true);
         }
-        else if(myDb.checkAccountExist(usernameInput, passwordInput))
+        else if(myDb.checkAccountExist(usernameInput, passwordInput)) // i check if existing yung accounts na ni login
         {
+            // pumunta sa shop page
             this.dispose(); 
             shopFrame shopPage = new shopFrame();    
             shopPage.setLocationRelativeTo(null);

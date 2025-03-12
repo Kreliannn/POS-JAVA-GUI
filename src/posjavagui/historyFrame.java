@@ -38,7 +38,10 @@ public class historyFrame extends javax.swing.JFrame {
         
         container.setLayout(new GridLayout(0, 1, 10, 10));
         
+        // mag iterate sa lahat ng transactions
         for (Transaction transaction : transactions) {
+            
+            // mag add ng container para sa bawat transactions
             JPanel productPanel = new JPanel();
             productPanel.setLayout(new BoxLayout(productPanel, BoxLayout.Y_AXIS));
             productPanel.setPreferredSize(new Dimension(220, 300)); // Adjusted size
@@ -47,7 +50,8 @@ public class historyFrame extends javax.swing.JFrame {
 
             // Set monospaced font for a receipt-like appearance
             Font receiptFont = new Font("Courier New", Font.PLAIN, 12);
-
+            
+            
             JLabel id = new JLabel("Receipt ID: " + transaction.getTransactionId());
             JLabel total = new JLabel("Total: ₱" + transaction.getTotal());
             JLabel cash = new JLabel("Cash: ₱" + transaction.getCash());
@@ -107,7 +111,8 @@ public class historyFrame extends javax.swing.JFrame {
             productPanel.add(total);
             productPanel.add(cash);
             productPanel.add(change);
-
+            
+            // i add ang container sa productPanel
             container.add(productPanel);
         }
 
@@ -187,6 +192,7 @@ public class historyFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // bumalik sa shop page
         this.dispose(); 
         shopFrame shopPage = new shopFrame();
         shopPage.setLocationRelativeTo(null);

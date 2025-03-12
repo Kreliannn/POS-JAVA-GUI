@@ -21,10 +21,10 @@ public class receiptFrame extends javax.swing.JFrame {
      */
     
     public receiptFrame(Transaction myTransaction) {
-        
-        
 
         initComponents();
+        
+        // lagyan ng value ang receipt information
         receiptId.setText(myTransaction.getTransactionId());
         receiptTotal.setText(Integer.toString(myTransaction.getTotal()));
         cash.setText(Integer.toString(myTransaction.getCash()));
@@ -34,7 +34,7 @@ public class receiptFrame extends javax.swing.JFrame {
         List<SoldProduct> soldProducts = myTransaction.getSoldProducts();
         
         
-        
+        // i dagdag sa resibo ang lahat ng products na nabili sa transacction nayon
         for (SoldProduct product : soldProducts) 
         {
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
@@ -296,7 +296,8 @@ public class receiptFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-         this.dispose(); 
+        // bumalik sa shoop page
+        this.dispose(); 
         shopFrame shopPage = new shopFrame();
         shopPage.setLocationRelativeTo(null);
         shopPage.setVisible(true);

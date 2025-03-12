@@ -26,16 +26,19 @@ public class shopFrame extends javax.swing.JFrame {
     public shopFrame() {
         initComponents();
         
+        // resizze logo
         scaleImage();
                 
         dbHelper db = new dbHelper();
         List<Product> productsDrinks = db.getProducts();
         
+        // set grid layout
         menuFood.setLayout(new GridLayout(0, 1, 10, 10));
         menuDrinks.setLayout(new GridLayout(0, 1, 10, 10));
         menuDesert.setLayout(new GridLayout(0, 1, 10, 10)); 
         menuBeverage.setLayout(new GridLayout(0, 1, 10, 10));
         
+        // iterate sa lahat ng products 
         for (Product product : productsDrinks) 
         {
             JPanel productPanel = new JPanel();
@@ -66,8 +69,8 @@ public class shopFrame extends javax.swing.JFrame {
             JTextField quantityField = new JTextField(1); // Small text field for quantity
             
             
-            // Buy Button
-            JButton buyButton = new JButton("Buy");
+            // cart Button
+            JButton buyButton = new JButton("add to cart");
             buyButton.setPreferredSize(new Dimension(300,30));
             buyButton.setMinimumSize(new Dimension(300, 30));
             buyButton.setMaximumSize(new Dimension(300, 30));
@@ -76,18 +79,20 @@ public class shopFrame extends javax.swing.JFrame {
 
 
 
-            // Add action to Buy button (Optional)
+            // eto ang mag rurun pag pinindot ang add to cart button
             buyButton.addActionListener(e -> {
                 String quantityText = quantityField.getText();
                 if (!quantityText.isEmpty() && quantityText.matches("\\d+")) {
                     int quantity = Integer.parseInt(quantityText);
                     if (quantity > 0 && quantity <= product.getStocks()) {
+                        // kunin ang inforamation ng product
                         String item = product.getName();
                         int price = product.getPrice();
                         int total = price * quantity;
                         String category = product.getCategory();
                         int id = product.getId();
-
+                        
+                        // i dagdag sa cart ang product na binili
                         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
                         model.addRow(new Object[]{id, item, category, quantity, total});
 
@@ -96,7 +101,8 @@ public class shopFrame extends javax.swing.JFrame {
                         totalVariable.setText(String.valueOf(totalVariableConvert + total)); 
                         
                         quantityField.setText("");
-                                
+                        
+                        // i update ang ttotal product
                         updateTotal();
                     } else {
                         JOptionPane.showMessageDialog(null, "Invalid quantity!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -113,7 +119,8 @@ public class shopFrame extends javax.swing.JFrame {
             productPanel.add(priceLabel);
             productPanel.add(quantityField);
             productPanel.add(buyButton);
-
+            
+            // i cehck ang category ng product at i add ang products kung saaan ba syang category
             if(product.getCategory().equals("food"))
             {
                 menuFood.add(productPanel);
@@ -137,6 +144,7 @@ public class shopFrame extends javax.swing.JFrame {
    
     }
     
+    // i update ang total ng product
     public void updateTotal()
     {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
@@ -543,7 +551,8 @@ public class shopFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    // tangalin ang item sa cart
     private void removeCartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeCartActionPerformed
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         int selectedRow = jTable1.getSelectedRow(); // Get selected row
@@ -572,6 +581,7 @@ public class shopFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
+        // i open ang login page
         loginFrame loginPage = new loginFrame();
         this.dispose(); 
         loginPage.setLocationRelativeTo(null);
@@ -579,6 +589,7 @@ public class shopFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_logoutBtnActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+         // i open ang add account page
         this.dispose(); 
         addAccountFrame addAccountPage = new addAccountFrame();
         addAccountPage.setLocationRelativeTo(null); 
@@ -586,12 +597,14 @@ public class shopFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void dashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dashboardActionPerformed
+         // i open ang dashboard page
         this.dispose(); 
          dashboardFrame dashboardPage = new dashboardFrame();
          dashboardPage.setLocationRelativeTo(null);
          dashboardPage.setVisible(true);
     }//GEN-LAST:event_dashboardActionPerformed
-
+    
+    // mag rurun to pag pinindot na ni cashier ang pay button
     private void payButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_payButtonActionPerformed
       
         dbHelper myDb = new dbHelper();
@@ -602,6 +615,7 @@ public class shopFrame extends javax.swing.JFrame {
         int transactionTotal = Integer.parseInt(totalVariable.getText());
         int cash = Integer.parseInt(payment.getText());
         
+        // i check if sakto or sobrta yung binayad ni customer. pag kulang mag alerrt ng error
         if(cash < transactionTotal)
         {
             JOptionPane.showMessageDialog(null, "payment is lessthan bill", "Error", JOptionPane.ERROR_MESSAGE);
@@ -611,6 +625,7 @@ public class shopFrame extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         int rowCount = model.getRowCount(); // Get total rows
        
+        // i dagdag sa soldProducts lahat ng product na nasa cart
         for (int i = 0; i < rowCount; i++) {
             int product_id = Integer.parseInt(model.getValueAt(i, 0).toString());
             String name = model.getValueAt(i, 1).toString(); // 0 is the index of the third column
@@ -621,10 +636,12 @@ public class shopFrame extends javax.swing.JFrame {
             myDb.updateStocks(qty, product_id);
         }
         
+        // kunin ang sukli
         int change = cash - transactionTotal;
         
         myDb.addTransaction(transaction_id, date, transactionTotal, cash, change);
         
+        // i open ang receipt page
         receiptFrame receiptPage = new receiptFrame(new Transaction(transaction_id, date, transactionTotal, cash, change));
         receiptPage.setLocationRelativeTo(null);
          this.dispose(); 
@@ -633,6 +650,7 @@ public class shopFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_payButtonActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // open receipt history page
         this.dispose(); 
          historyFrame historyPage = new historyFrame();
          historyPage.setLocationRelativeTo(null);
@@ -640,6 +658,7 @@ public class shopFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // open report sales page
         this.dispose(); 
          salesReport reportPage = new salesReport();
          reportPage.setLocationRelativeTo(null);

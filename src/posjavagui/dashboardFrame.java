@@ -21,6 +21,7 @@ public class dashboardFrame extends javax.swing.JFrame {
         
         dbHelper myDb = new dbHelper();
         
+        // lagyan ng value ang bawat container sa dashboard
         productCount.setText(Integer.toString(myDb.getProductsCount()));
         accountCount.setText(Integer.toString(myDb.getAccounts()));
         totalSales.setText(Integer.toString(myDb.getTotalSales()));
