@@ -11,7 +11,7 @@ public class Product {
     private int product_stocks;
     private String product_category;
     
-
+    //paglalagay ng value sa lahat ng variable
     public Product(int product_id, String product_name, String product_img, int price, int product_stocks, String product_category) 
     {
         this.product_id = product_id;

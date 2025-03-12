@@ -127,14 +127,6 @@ public class addProductsFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(backHome)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(134, 134, 134))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -178,6 +170,15 @@ public class addProductsFrame extends javax.swing.JFrame {
                             .addComponent(jLabel2)
                             .addComponent(productName, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(backHome))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(134, 134, 134)
+                        .addComponent(jLabel1)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -203,12 +204,13 @@ public class addProductsFrame extends javax.swing.JFrame {
                     .addComponent(jLabel6)
                     .addComponent(productImg))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(foodButton)
-                    .addComponent(dessertButton)
-                    .addComponent(beverageButton)
-                    .addComponent(jLabel7)
-                    .addComponent(drinksButton))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(dessertButton)
+                        .addComponent(beverageButton)
+                        .addComponent(jLabel7)
+                        .addComponent(drinksButton)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -228,7 +230,8 @@ public class addProductsFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_productPriceActionPerformed
 
     private void backHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backHomeActionPerformed
-         this.dispose(); 
+         // babalik sa shop page 
+        this.dispose(); 
          shopFrame shopPage = new shopFrame();
          shopPage.setLocationRelativeTo(null);
          shopPage.setVisible(true);
@@ -238,12 +241,14 @@ public class addProductsFrame extends javax.swing.JFrame {
         
         dbHelper myDb = new dbHelper();
         
+        // kunin lahat ng value sa input field
         String name = productName.getText();
         String img = imgNameLabel.getText();
         int price = Integer.parseInt(!productPrice.getText().equals("") ? productPrice.getText() : "0");
         int stocks = Integer.parseInt(!productStocks.getText().equals("") ? productStocks.getText() : "0");
         String category = "";
         
+        // i check sa radio button kung anong category ba ang sinelect ng user
         if(foodButton.isSelected())
         {
             category = "food";
@@ -261,15 +266,19 @@ public class addProductsFrame extends javax.swing.JFrame {
             category = "beverage";
         }
         
+        // i check if may empty field. pag  meron  mag alert ng error message
         if(name.equals("") || img.equals("") || price == 0 || stocks == 0)
         {
             JOptionPane.showMessageDialog(null, "empty field!!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }    
         
+        //mag add ng products sa database
         if( myDb.addProduct(new Product(0, name, img, price, stocks, category)))
         {
            JOptionPane.showMessageDialog(null, "Product successfully added", "Success", JOptionPane.INFORMATION_MESSAGE);
+           
+           //i reset ang value ng tecxt field
            productName.setText("");
            productPrice.setText("");
            productStocks.setText("");

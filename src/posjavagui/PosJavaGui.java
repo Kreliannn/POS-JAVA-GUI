@@ -6,13 +6,10 @@ public class PosJavaGui {
 
   
     public static void main(String[] args) {
+        // pag open ng cashier login pag ni run ang program
        loginFrame loginPage = new loginFrame();
        loginPage.setLocationRelativeTo(null); 
-       //loginPage.setVisible(true);
-       
-       shopFrame loginPage1 = new shopFrame();
-       loginPage1.setLocationRelativeTo(null); 
-       loginPage1.setVisible(true);
+       loginPage.setVisible(true); 
     }
     
 }

@@ -129,7 +129,10 @@ public class editProducts extends javax.swing.JFrame {
                 
                 if(myDb.updateProduct(price, stocks, id))
                 {
-                    JOptionPane.showMessageDialog(null, "saved changes", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    editProducts page = new editProducts();
+                    this.dispose(); 
+                    page.setLocationRelativeTo(null); 
+                    page.setVisible(true);
                 }
                 else
                 {

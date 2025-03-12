@@ -24,6 +24,7 @@ public class Transaction {
      private int cash;
      private int payment_change;
      
+     //paglalagay ng value sa lahat ng variable
      public Transaction(String transaction_id, String date, int total, int cash, int payment_change) {
         this.transaction_id = transaction_id;
         this.date = date;
@@ -32,6 +33,7 @@ public class Transaction {
         this.payment_change = payment_change;
     }
      
+     // kukunin lahat ng products na naibenta sa transaction
      public List<SoldProduct> getSoldProducts()
      {
          dbHelper myDb = new dbHelper();

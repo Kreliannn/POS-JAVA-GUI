@@ -126,6 +126,7 @@ public class addAccountFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_usernameFieldActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        //pag lipat ng page papuntang shop page
         this.dispose(); 
         shopFrame shopPage = new shopFrame();
         shopPage.setLocationRelativeTo(null);
@@ -137,6 +138,7 @@ public class addAccountFrame extends javax.swing.JFrame {
         String password = passwordField.getText();
         String confirmPassword = confirmPasswordField.getText();
         
+        // i checheck kung may empty field,  pag meron lalabas ang error message
         if(username.equals("") | password.equals("") || confirmPassword.equals(""))
         {
             JOptionPane.showMessageDialog(null, "empty field!!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -149,8 +151,12 @@ public class addAccountFrame extends javax.swing.JFrame {
         }
         
         dbHelper myDb = new dbHelper();
+        
+        // pag add ng account sa daatabase
         myDb.addAccount(username, password);
         JOptionPane.showMessageDialog(null, "account successfullyadded", "Success", JOptionPane.INFORMATION_MESSAGE);
+        
+        // i reset ang value ng lahat ng text field
         usernameField.setText("");
         passwordField.setText("");
         confirmPasswordField.setText("");

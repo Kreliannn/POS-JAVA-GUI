@@ -29,6 +29,9 @@ public class salesReport extends javax.swing.JFrame {
         dsDay.setText(Day);
         dsMonth.setText(Month);
         dsYear.setText(Year);
+        
+        msMonth.setText(Month);
+        msYear.setText(Year);
     }
     
      public  String getMonthName(String monthNumber) {
@@ -273,9 +276,9 @@ public class salesReport extends javax.swing.JFrame {
     }//GEN-LAST:event_msMonthActionPerformed
 
     private void daySalesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_daySalesBtnActionPerformed
-        String day = dsDay.getText();
-        String month = dsMonth.getText();
-        String year = dsYear.getText();
+        int day = Integer.parseInt(dsDay.getText());
+        int month = Integer.parseInt(dsMonth.getText());
+        int year = Integer.parseInt(dsYear.getText());
         
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
@@ -289,11 +292,11 @@ public class salesReport extends javax.swing.JFrame {
         for(Transaction transaction : transactions)
         {
             String transactionDate[] = transaction.getDate().split("-");
-            String transactionDay = transactionDate[2];
-            String transactionMonth = transactionDate[1];
-            String transactionYear = transactionDate[0];
+            int transactionDay = Integer.parseInt(transactionDate[2]);
+            int transactionMonth = Integer.parseInt(transactionDate[1]);
+            int transactionYear = Integer.parseInt(transactionDate[0]);
             
-            if(day.equals(transactionDay) && month.equals(transactionMonth) && year.equals(transactionYear))
+            if(day == transactionDay && month == transactionMonth && year == transactionYear)
             {
                 model.addRow(new Object[]{
                     transaction.getTransactionId(),
@@ -309,7 +312,7 @@ public class salesReport extends javax.swing.JFrame {
         }
         
         totalVariable.setText(Integer.toString(totalSales));
-        dateVariable.setText(getMonthName(month) + " " + day + " " + year);
+        dateVariable.setText(getMonthName(Integer.toString(month)) + " " + day + " " + year);
         
         
     }//GEN-LAST:event_daySalesBtnActionPerformed

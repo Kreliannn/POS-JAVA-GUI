@@ -17,6 +17,7 @@ public class SoldProduct {
     private String category;
     private int total;
     
+    //pag lalagay ng value sa lahat ng variable
     public SoldProduct(int id, int qty,  String name, int price, String category) {
         this.id = id;
         this.qty = qty;
