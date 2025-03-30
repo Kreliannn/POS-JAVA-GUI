@@ -1,6 +1,12 @@
 # 🍽️ Restaurant POS System  
 
-A **Point of Sale (POS) system** designed for restaurants to **manage products, track sales, and monitor inventory** efficiently.  
+A POS system for restaurants to streamline order management, track sales, monitor inventory levels, and generate reports. This system allows restaurant owners to efficiently manage their menu, keep track of stock availability, and gain insights into daily and monthly sales performance, ensuring smooth operations and better decision-making.  
+
+
+🚨 <span style="color:red">**This repository does not include database file. you can message me on tiktok for the missing sql file.  
+## ⚠️ <span style="color:red">Warning</span>  
+
+🔗 [Contact me on TikTok](https://www.tiktok.com/@krelq)  
 
 ## ✨ Features  
 
@@ -9,9 +15,8 @@ A **Point of Sale (POS) system** designed for restaurants to **manage products, 
 - 💰 **Sales Tracking** – View daily, monthly, and custom sales reports.  
 - 🧾 **Receipt History** – Keep a record of past transactions and receipts.  
 
-🚨 <span style="color:red">**This repository does not include database file. you can message me on tiktok for the missing sql file.  
 
-🔗 [Contact me on TikTok](https://www.tiktok.com/@krelq)  
+
 
 
 
